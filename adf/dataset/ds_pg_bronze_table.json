@@ -1,0 +1,25 @@
+{
+	"name": "ds_pg_bronze_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_pg_tgs_data",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "bronze",
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
