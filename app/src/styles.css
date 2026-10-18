@@ -1,0 +1,252 @@
+@import 'tailwindcss';
+
+/* Semantic tokens: one declaration per color, both themes via light-dark().
+   color-scheme follows the OS unless the theme toggle pins it (public/theme.js). */
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(oklch(98.4% 0.004 275), oklch(16.5% 0.012 275));
+  --surface: light-dark(oklch(100% 0 0), oklch(20.5% 0.014 275));
+  --surface-2: light-dark(oklch(96.6% 0.006 275), oklch(24.5% 0.016 275));
+  --line: light-dark(oklch(91.5% 0.008 275), oklch(30% 0.018 275));
+  --line-strong: light-dark(oklch(85% 0.012 275), oklch(38% 0.02 275));
+  --ink: light-dark(oklch(23% 0.02 275), oklch(95% 0.006 275));
+  --ink-2: light-dark(oklch(44% 0.02 275), oklch(78% 0.012 275));
+  --ink-3: light-dark(oklch(55% 0.018 275), oklch(66% 0.014 275));
+  --accent: light-dark(oklch(52% 0.2 278), oklch(72% 0.15 278));
+  --accent-strong: light-dark(oklch(46% 0.21 278), oklch(80% 0.12 278));
+  --accent-soft: light-dark(oklch(95.5% 0.025 278), oklch(28% 0.06 278));
+  --on-accent: light-dark(oklch(100% 0 0), oklch(18% 0.03 278));
+  --good: light-dark(oklch(58% 0.14 160), oklch(74% 0.14 160));
+  --warn-bg: light-dark(oklch(97% 0.03 75), oklch(26% 0.04 70));
+  --warn-ink: light-dark(oklch(45% 0.1 60), oklch(85% 0.09 75));
+  --danger-bg: light-dark(oklch(96.5% 0.025 25), oklch(26% 0.05 25));
+  --danger-ink: light-dark(oklch(47% 0.15 25), oklch(83% 0.09 25));
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-good: var(--good);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-ink: var(--warn-ink);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-ink: var(--danger-ink);
+  --animate-rise: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+  /* Keep the page still behind the open mobile menu. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 25%, transparent);
+  }
+}
+
+@layer components {
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--ink) 20%,
+      var(--accent) 60%,
+      color-mix(in oklab, var(--accent) 50%, oklch(70% 0.17 330)) 95%
+    );
+    background-clip: text;
+    color: transparent;
+  }
+  /* The mobile menu slides in from the left. */
+  .drawer[open] {
+    animation: drawer 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @keyframes drawer {
+    from {
+      translate: -100% 0;
+    }
+  }
+  /* Grows with its content; the JS fallback in Composer handles older engines. */
+  .auto-grow {
+    field-sizing: content;
+  }
+
+  /* Markdown answers. */
+  .prose-answer {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+    & p,
+    & ul,
+    & ol {
+      margin: 0.75em 0;
+    }
+    & ul,
+    & ol {
+      padding-left: 1.4em;
+    }
+    & ul {
+      list-style: disc;
+    }
+    & ol {
+      list-style: decimal;
+    }
+    & li {
+      margin: 0.25em 0;
+    }
+    & li::marker {
+      color: var(--ink-3);
+    }
+    & strong {
+      font-weight: 600;
+    }
+    & h1,
+    & h2,
+    & h3,
+    & h4 {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 1.3em 0 0.5em;
+      line-height: 1.35;
+    }
+    & h1,
+    & h2 {
+      font-size: 1.15em;
+    }
+    & h3,
+    & h4 {
+      font-size: 1em;
+    }
+    & a {
+      color: var(--accent-strong);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    & code {
+      font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 0.1em 0.35em;
+    }
+    & pre {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow: auto;
+      font-size: 0.8125rem;
+      & code {
+        background: none;
+        border: 0;
+        padding: 0;
+      }
+    }
+    & blockquote {
+      border-left: 3px solid var(--line-strong);
+      margin: 0.75em 0;
+      padding-left: 1em;
+      color: var(--ink-2);
+    }
+    & hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.25em 0;
+    }
+    & table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    & th,
+    & td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    & th {
+      position: sticky;
+      top: 0;
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+    & td {
+      color: var(--ink);
+    }
+    & tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    & tbody tr:hover td {
+      background: color-mix(in oklab, var(--accent-soft) 60%, transparent);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
