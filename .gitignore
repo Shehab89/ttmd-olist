@@ -1,0 +1,13 @@
+.env
+*.env
+*.pem
+*.key
+*.pfx
+secrets*
+*.tfstate*
+*.tfvars
+local.settings.json
+__pycache__/
+node_modules/
+*.dump
+*.csv
