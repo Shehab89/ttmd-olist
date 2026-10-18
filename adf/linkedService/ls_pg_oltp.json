@@ -1,0 +1,17 @@
+{
+    "name": "ls_pg_oltp",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzurePostgreSql",
+        "version": "2.0",
+        "typeProperties": {
+            "server": "<postgres-server>.postgres.database.azure.com",
+            "port": "5432",
+            "database": "olist_oltp",
+            "sslMode": 2,
+            "username": "<username>",
+            "authenticationType": "Basic"
+        }
+    }
+}

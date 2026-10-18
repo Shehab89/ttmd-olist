@@ -1,0 +1,11 @@
+{
+    "name": "plpsourc",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureBlobStorage",
+        "typeProperties": {
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=<storage-account>;EndpointSuffix=core.windows.net;"
+        }
+    }
+}
