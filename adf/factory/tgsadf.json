@@ -1,0 +1,13 @@
+{
+    "name": "tgsadf",
+    "properties": {
+        "trustModeClaimForMi": {
+            "value": "Disabled",
+            "editable": true
+        }
+    },
+    "location": "northeurope",
+    "identity": {
+        "type": "SystemAssigned"
+    }
+}
